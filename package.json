@@ -1,53 +1,15 @@
 {
-  "name": "holyunblocker",
-  "version": "6.8.7",
-  "repository": "https://github.com/QuiteAFancyEmerald/Holy-Unblocker",
-  "description": "Holy Unblocker LTS is a web proxy service that helps you access websites that may be blocked by your network, government or policy all within your browser with no download or setup.",
+  "name": "holy-unblocker",
+  "version": "1.0.0",
+  "description": "Your app description",
   "main": "backend.js",
-  "engines": {
-    "node": "20.x"
-  },
   "scripts": {
-    "fresh-install": "npm cache verify && npm update && npm ci && cd lib/rammerhead && npm ci",
-    "fresh-start": "npm run fresh-install && npm start",
-    "start": "npm stop && npm run build && npm run manual-start",
-    "restart": "node run-command.mjs stop start",
-    "stop": "node run-command.mjs stop",
-    "test": "npm run proxy-validator",
-    "manual-start": "node run-command.mjs start",
-    "kill": "node run-command.mjs stop kill",
-    "build": "node run-command.mjs build && cd lib/rammerhead && npm run build",
-    "clear": "node run-command.mjs clean",
-    "clean": "node run-command.mjs clean format",
-    "proxy-validator": "node proxyServiceValidator.js",
-    "workflow-test": "node run-command.mjs workflow",
-    "deployment": "npm install && npm run build && node backend.js"
+    "start": "node backend.js"
   },
-  "keywords": [
-    "proxy",
-    "node.js",
-    "unblocker"
-  ],
-  "author": "Titanium Network",
-  "license": "GNU AFFERO",
   "dependencies": {
-    "@fastify/helmet": "^13.0.1",
-    "@fastify/static": "^8.2.0",
-    "@mercuryworkshop/bare-mux": "^2.1.7",
-    "@mercuryworkshop/epoxy-transport": "^2.1.28",
-    "@mercuryworkshop/libcurl-transport": "^1.5.0",
-    "@mercuryworkshop/scramjet": "github:MercuryWorkshop/scramjet"
-    "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
-    "axios": "^1.11.0",
-    "eruda": "^3.4.3",
-    "fastify": "^5.5.0",
-    "pm2": "^6.0.8",
-    "puppeteer": "^24.17.0",
-    "wisp-server-node": "^1.1.7",
-    "ws": "^8.18.3"
+    "fastify": "^4.30.0"
   },
-  "devDependencies": {
-    "@babel/node": "^7.28.0",
-    "esbuild": "^0.25.9"
+  "engines": {
+    "node": ">=20.0.0 <21.0.0"
   }
 }

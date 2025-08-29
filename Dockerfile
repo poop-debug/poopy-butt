@@ -1,20 +1,21 @@
-# Use a lightweight Node image
+# Use Node 20 Alpine as a lightweight base image
 FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files first (for caching)
-COPY package*.json ./
+# Copy package.json and optionally package-lock.json (if you have it)
+COPY package.json ./
 
-# Install dependencies while ignoring integrity issues
-RUN npm install --omit=optional --no-audit --force
+# Install dependencies, ignoring optional packages and integrity errors
+RUN npm install --omit=optional --legacy-peer-deps --force
 
-# Copy the rest of the app
+# Copy the rest of your source code
 COPY . .
 
-# Expose the port your app uses
+# Expose port 3000 for Koyeb
 EXPOSE 3000
 
 # Start the app (adjust if your start command is different)
-CMD ["node", "backend.js"]
+CMD ["node", "backend.js"]COPY package.json ./
+RUN npm install --omit=optional --legacy-peer-deps --force
