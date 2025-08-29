@@ -1,24 +1,20 @@
-# Use official Node.js Alpine image
+# Use a lightweight Node.js image
 FROM node:20-alpine
-
-# Install build tools
-RUN apk add --no-cache python3 make g++
 
 # Set working directory
 WORKDIR /app
 
-# Copy package files
+# Copy package files first for efficient caching
 COPY package*.json ./
 
-# Install dependencies in a forgiving way
-RUN npm install --force --no-audit --legacy-peer-deps
+# Install dependencies (skip optional modules and avoid audit errors)
+RUN npm install --omit=optional --no-audit
 
-# Copy the rest of the app
+# Copy the rest of your app
 COPY . .
 
-# Expose port 3000
+# Expose the port your app uses (change if your app uses a different port)
 EXPOSE 3000
-ENV PORT=3000
 
 # Start the app
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
