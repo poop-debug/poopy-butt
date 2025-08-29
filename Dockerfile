@@ -1,23 +1,15 @@
-# Use Node.js 20 on Alpine Linux
 FROM node:20-alpine
 
-# Set working directory
+RUN apk add --no-cache python3 make g++
+
 WORKDIR /app
 
-# Copy dependency files first for better caching
 COPY package*.json ./
+RUN npm ci --force --no-audit || npm install --force --no-audit
 
-# Install dependencies (skip optional modules and avoid audit errors)
-RUN npm install --omit=optional --no-audit
-
-# Copy the rest of the source code
 COPY . .
 
-# Expose the port Holy-Unblocker listens on
 EXPOSE 8080
-
-# Set environment variable for the port
 ENV PORT=8080
 
-# Start the app
 CMD ["npm", "start"]
