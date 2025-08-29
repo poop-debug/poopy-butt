@@ -1,18 +1,23 @@
+# Use Node.js 20 on Alpine Linux
 FROM node:20-alpine
 
+# Set working directory
 WORKDIR /app
 
-LABEL org.opencontainers.image.title="Holy Unblocker LTS" \
-      org.opencontainers.image.description="An effective, privacy-focused web proxy service" \
-      org.opencontainers.image.version="6.8.5" \
-      org.opencontainers.image.authors="Holy Unblocker Team" \
-      org.opencontainers.image.source="https://github.com/QuiteAFancyEmerald/Holy-Unblocker/"
+# Copy dependency files first for better caching
+COPY package*.json ./
 
+# Install dependencies (skip optional modules and avoid audit errors)
+RUN npm install --omit=optional --no-audit
+
+# Copy the rest of the source code
 COPY . .
 
-RUN npm run fresh-install
-RUN npm run build
-
+# Expose the port Holy-Unblocker listens on
 EXPOSE 8080
 
-CMD ["node", "backend.js"]
+# Set environment variable for the port
+ENV PORT=8080
+
+# Start the app
+CMD ["npm", "start"]
